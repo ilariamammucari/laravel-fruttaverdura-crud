@@ -41,9 +41,9 @@ class FruitController extends Controller
     {
         $data = $request->validate([
             'nome' => 'required|max:50',
-            'peso' => 'required',
+            'peso' => 'required|between:0-9999,99',
             'stagione' => 'required|max:15',
-            'prezzo' => 'required'
+            'prezzo' => 'required|between:0-9999,99'
         ]);
             $fruit->fill($data);
             $fruit->save();
@@ -59,13 +59,18 @@ class FruitController extends Controller
      */
     public function show(Fruit $fruit)
     {
-        if ($fruit){
-            $data = [
-                'frutto' => $fruit
-            ];
-            return view('fruits.show',$data);
-        }
-        abort('404');
+        // if ($fruit){
+        //     $data = [
+        //         'frutto' => $fruit
+        //     ];
+        //     return view('fruits.show',$data);
+        // }
+        // abort('404');
+
+        $data = [
+            'frutto' => $fruit ?? abort('404')
+        ];
+        return view('fruits.show',$data);
     }
 
     /**
@@ -76,13 +81,18 @@ class FruitController extends Controller
      */
     public function edit(Fruit $fruit)
     {
-        if ($fruit){
-            $data = [
-                'frutto' => $fruit
-            ];
-            return view('fruits.edit', $data);
-        }
-        abort('404');
+        // if ($fruit){
+        //     $data = [
+        //         'frutto' => $fruit
+        //     ];
+        //     return view('fruits.edit', $data);
+        // }
+        // abort('404');
+
+        $data = [
+            'frutto' => $fruit ?? abort('404')
+        ];
+        return view('fruits.edit', $data);
     }
 
     /**
@@ -96,9 +106,9 @@ class FruitController extends Controller
     {
         $data = $request->validate([
             'nome' => 'required|max:50',
-            'peso' => 'required',
+            'peso' => 'required|between:0-9999,99',
             'stagione' => 'required|max:15',
-            'prezzo' => 'required'
+            'prezzo' => 'required|between:0-9999,99'
         ]);
         $fruit->update($data);
 

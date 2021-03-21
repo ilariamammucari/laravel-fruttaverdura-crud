@@ -41,9 +41,9 @@ class VegetableController extends Controller
     {
         $data = $request->validate([
             'nome' => 'required|max:50',
-            'peso' => 'required',
+            'peso' => 'required|between:0-9999,99',
             'stagione' => 'required|max:15',
-            'prezzo' => 'required'
+            'prezzo' => 'required|between:0-9999,99'
         ]);
         $vegetable->fill($data);
         $vegetable->save();
@@ -59,12 +59,18 @@ class VegetableController extends Controller
      */
     public function show(Vegetable $vegetable)
     {
-        if ($vegetable){
-            $data = [
-                'verdura' => $vegetable
-            ];
-            return view('vegetables.show', $data);
-        }
+        // if ($vegetable){
+        //     $data = [
+        //         'verdura' => $vegetable
+        //     ];
+        //     return view('vegetables.show', $data);
+        // }
+        // abort('404');
+
+        $data = [
+            'verdura' => $vegetable ?? abort('404')
+        ];
+        return view('vegetables.show', $data);
     }
 
     /**
@@ -75,13 +81,18 @@ class VegetableController extends Controller
      */
     public function edit(Vegetable $vegetable)
     {
-        if($vegetable){
-            $data = [
-                'verdura' => $vegetable
-            ];
-            return view('vegetables.edit', $data);
-        }
-        abort('404');
+        // if($vegetable){
+        //     $data = [
+        //         'verdura' => $vegetable
+        //     ];
+        //     return view('vegetables.edit', $data);
+        // }
+        // abort('404');
+
+        $data = [
+            'verdura' => $vegetable ?? abort('404')
+        ];
+        return view('vegetables.edit', $data);
     }
 
     /**
@@ -95,9 +106,9 @@ class VegetableController extends Controller
     {
         $data = $request->validate([
             'nome' => 'required|max:50',
-            'peso' => 'required',
+            'peso' => 'required|between:0-9999,99',
             'stagione' => 'required|max:15',
-            'prezzo' => 'required'
+            'prezzo' => 'required|between:0-9999,99'
         ]);
         $vegetable->update($data);
 
